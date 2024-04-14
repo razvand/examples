@@ -1,8 +1,6 @@
 spec: v0.6
 
-#runtime: official-testing/nginx:latest-internal-dbg
 runtime: nginx:latest
-#runtime: nginx:latest-dbg
 
 rootfs: ./rootfs
 
