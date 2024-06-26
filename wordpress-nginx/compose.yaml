@@ -1,0 +1,21 @@
+services:
+
+  wordpress:
+    build: .
+    ports:
+      - 443:80
+    domainname: wordpress
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db.internal
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpresspass
+      WORDPRESS_DB_NAME: wordpress
+    mem_reservation: 1024
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpresspass
+    mem_reservation: 1024
