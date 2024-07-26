@@ -1,0 +1,3 @@
+port_mapping=443:2015
+memory=256
+name="$(basename "$(realpath .)")"

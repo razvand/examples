@@ -6,7 +6,7 @@ To run Grafana on Unikraft Cloud, first [install the `kraft` CLI tool](https://u
 Then clone this examples repository and `cd` into this directory, and invoke:
 
 ```console
-kraft cloud deploy --metro fra -p 443:3000 -M 1024 .
+kraft cloud deploy --metro fra -p 443:3000 -M 2048 .
 ```
 
 After deploying, you can query the service using the provided URL.
