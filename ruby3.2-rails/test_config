@@ -1,0 +1,4 @@
+port_mapping=443:3000
+memory=1024
+extra="-e GEM_HOME=/usr/local/bundle -e BUNDLE_APP_CONFIG=/usr/local/bundle"
+name="$(basename "$(realpath .)" | tr -d '.')"

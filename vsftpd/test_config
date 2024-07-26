@@ -1,0 +1,2 @@
+memory=1024
+name="$(basename "$(realpath .)" | tr -d ".")"

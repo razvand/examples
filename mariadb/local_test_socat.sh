@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if test $# -ne 1; then
+    echo "$0 url" 1>&2
+    exit 1
+fi
+
+url="$1"
+
+. ./test_config
+
+fqdn=${url#https://}
+socat TCP-LISTEN:3306,bind=127.0.0.1,fork,reuseaddr OPENSSL:"$fqdn":3306 &
+sleep 1
+echo "show databases;" | mysql --skip-ssl -h 127.0.0.1 -u root -punikraft > /dev/null && echo "connect: PASSED" || echo "connect: FAILED"
+echo "show databases;" | mysql --skip-ssl -h 127.0.0.1 -u root -punikraft | grep 'mysql' > /dev/null && echo "message: PASSED" || echo "message: FAILED"
+kill $!

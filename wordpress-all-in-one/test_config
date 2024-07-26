@@ -1,0 +1,3 @@
+port_mapping=443:80
+memory=4096
+name="$(basename "$(realpath .)" | tr -d '.')"
