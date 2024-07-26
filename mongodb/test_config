@@ -1,0 +1,3 @@
+port_mapping=27017:27017
+memory=1024
+name="$(basename "$(realpath .)")"

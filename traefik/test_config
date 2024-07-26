@@ -1,0 +1,3 @@
+port_mapping="443:80/tls+http -p 8080:8080/tls"
+memory=512
+name="$(basename "$(realpath .)" | tr -d ',')"
