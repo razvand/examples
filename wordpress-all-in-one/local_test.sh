@@ -7,5 +7,5 @@ fi
 
 url="$1"
 
-curl -s "$url" -o /dev/null && echo "connect: PASSED" || echo "connect: FAILED"
-curl -s "$url" | grep 'Wordpress' > /dev/null && echo "message: PASSED" || echo "message: FAILED"
+curl -sL "$url" -o /dev/null && echo "connect: PASSED" || echo "connect: FAILED"
+curl -sL "$url" | grep 'WordPress' > /dev/null && echo "message: PASSED" || echo "message: FAILED"

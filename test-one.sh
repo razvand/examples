@@ -33,10 +33,28 @@ fi
 
 cd "$name"
 echo " * Remove previous deployment (if any) ..."
-../end.sh > /dev/null 2>&1
+if test -f "end.sh"; then
+    ./end.sh > /dev/null 2>&1
+else
+    ../end.sh > /dev/null 2>&1
+fi
 echo " * Deploy ..."
-../deploy.sh
+if test -f "deploy.sh"; then
+    ./deploy.sh
+else
+    ../deploy.sh
+fi
+echo " * Wait 5 seconds for deployment ..."
+sleep 5
 echo " * Test ..."
-../test.sh
+if test -f "test.sh"; then
+    ./test.sh
+else
+    ../test.sh
+fi
 echo " * Remove deployment ..."
-../end.sh
+if test -f "end.sh"; then
+    ./end.sh
+else
+    ../end.sh
+fi

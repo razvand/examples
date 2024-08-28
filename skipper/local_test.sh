@@ -8,4 +8,4 @@ fi
 url="$1"
 
 curl -s "$url" -o /dev/null && echo "connect: PASSED" || echo "connect: FAILED"
-curl -s "$url" | grep 'Bye, world' > /dev/null && echo "message: PASSED" || echo "message: FAILED"
+curl -s "$url" | grep 'from Skipper' > /dev/null && echo "message: PASSED" || echo "message: FAILED"
