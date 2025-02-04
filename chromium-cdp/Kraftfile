@@ -9,4 +9,4 @@ labels:
 
 rootfs: ./Dockerfile
 
-cmd: ["/usr/bin/wrapper.sh", "/usr/bin/node", "/app/server.js"]
+cmd: ["/usr/bin/wrapper.sh"]

@@ -25,8 +25,8 @@ RUN set -xe; \
         curl \
         build-essential \
         libssl-dev \
-        git \
-    ;
+        git; \
+    apt-get -yqq install nginx ;
 
 RUN set -xe; \
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash; \
@@ -201,17 +201,45 @@ COPY --from=build /usr/lib/os-release /usr/lib/os-release
 # Configuration files
 COPY --from=build /etc /etc
 
-# Node modules, including Puppeteer and application
-COPY --from=build /app /app
-
 # Required by wrapper script
 COPY --from=build /bin/sh /bin/sh
+COPY --from=build /bin/echo /bin/echo
 
 # Required by Playwright / Chrome
 COPY --from=build /usr/bin/ps /usr/bin/ps
+COPY --from=build /usr/bin/sleep /usr/bin/sleep
+
+# Node application, including Playwright.
+COPY --from=build /app /app
 
 # Actual server implementation
 COPY ./server.js /app/server.js
+
+# Nginx binaries, modules, configuration, log and runtime files
+COPY --from=build /usr/sbin/nginx /usr/sbin/nginx
+COPY --from=build /var/lib/nginx /var/lib/nginx
+COPY --from=build /etc/nginx /etc/nginx
+COPY --from=build /etc/passwd /etc/passwd
+COPY --from=build /etc/group /etc/group
+COPY --from=build /var/log/nginx /var/log/nginx
+#COPY --from=build /var/cache/nginx /var/cache/nginx
+COPY --from=build /var/run /var/run
+
+# Libraries
+COPY --from=build /lib/x86_64-linux-gnu/libcrypt.so.1 /lib/x86_64-linux-gnu/libcrypt.so.1
+COPY --from=build /lib/x86_64-linux-gnu/libpcre2-8.so.0 /lib/x86_64-linux-gnu/libpcre2-8.so.0
+COPY --from=build /lib/x86_64-linux-gnu/libssl.so.3 /lib/x86_64-linux-gnu/libssl.so.3
+COPY --from=build /lib/x86_64-linux-gnu/libcrypto.so.3 /lib/x86_64-linux-gnu/libcrypto.so.3
+COPY --from=build /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/libz.so.1
+COPY --from=build /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
+COPY --from=build /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
+COPY --from=build /etc/ld.so.cache /etc/ld.so.cache
+
+# Custom configuration files, including using a single process for Nginx
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
+# Web root
+COPY ./index.html /var/www/html/index.html
 
 # Wrapper script set environment
 COPY ./wrapper.sh /usr/bin/wrapper.sh
