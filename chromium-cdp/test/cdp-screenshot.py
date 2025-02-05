@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 p = sync_playwright().start()
 
 # TODO: Configure as a command line interface.
-#CDP_URL = "http://localhost:9222"
+#CDP_URL = "http://banana:8081"
 CDP_URL = "https://chromium-cdp.fra0.kraft.host"
 
 browser = p.chromium.connect_over_cdp(CDP_URL)
