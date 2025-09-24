@@ -4,7 +4,8 @@ services:
     build: .
     ports:
       - 443:8080
+    mem_reservation: 256M
 
   redis:
-    image: redis:latest
+    build: ../redis
     mem_reservation: 512M

@@ -57,7 +57,7 @@ jobs:
             --no-start \
             --memory 4096 \
             --name python-playwright-chromium-${GITHUB_RUN_ID} \
-            --runtime index.unikraft.io/official-testing/base-compat:latest \
+            --runtime index.unikraft.io/official-staging/base-compat:latest \
             --subdomain python-playwright-chromium-${GITHUB_RUN_ID} \
             -p 443:8080 \
             .;

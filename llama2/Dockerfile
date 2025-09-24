@@ -1,11 +1,11 @@
-FROM alpine:3.14 as base
+FROM alpine:3.14 AS base
 
 WORKDIR /
 
-# Create a symlink for default model
 RUN set -xe; \
-    mkdir -p /models/stories15M && \
-    ln -sfn /models/stories15M /models/DEFAULT
+	wget -O model.bin https://huggingface.co/karpathy/tinyllamas/resolve/main/stories15M.bin && \
+	mkdir -p /models/stories15M && \
+	ln -sfn /models/stories15M /models/DEFAULT
 
 FROM scratch
 

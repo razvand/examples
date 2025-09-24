@@ -40,6 +40,19 @@ RUN spin build
 
 FROM scratch
 
+# Binary executable
+COPY --from=build /usr/bin/spin /usr/bin/spin
+
+# System libraries
+COPY --from=build /lib/x86_64-linux-gnu/libstdc++.so.6 /lib/x86_64-linux-gnu/libstdc++.so.6
+COPY --from=build /lib/x86_64-linux-gnu/libgcc_s.so.1 /lib/x86_64-linux-gnu/libgcc_s.so.1
+COPY --from=build /lib/x86_64-linux-gnu/librt.so.1 /lib/x86_64-linux-gnu/librt.so.1
+COPY --from=build /lib/x86_64-linux-gnu/libpthread.so.0 /lib/x86_64-linux-gnu/libpthread.so.0
+COPY --from=build /lib/x86_64-linux-gnu/libm.so.6 /lib/x86_64-linux-gnu/libm.so.6
+COPY --from=build /lib/x86_64-linux-gnu/libdl.so.2 /lib/x86_64-linux-gnu/libdl.so.2
+COPY --from=build /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
+COPY --from=build /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
+
 COPY ./spin.toml /app/spin.toml
 COPY --from=build /app/hello-cpp/hello.wasm /app/hello-cpp/hello.wasm
 COPY --from=build /app/goodbye-rust/target/wasm32-wasi/release/goodbye.wasm /app/goodbye-rust/target/wasm32-wasi/release/goodbye.wasm

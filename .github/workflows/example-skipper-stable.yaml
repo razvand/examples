@@ -54,7 +54,7 @@ jobs:
             --no-start \
             --memory 256 \
             --name skipper-${GITHUB_RUN_ID} \
-            --runtime index.unikraft.io/official-testing/skipper:0.18 \
+            --runtime index.unikraft.io/official-testing/base-compat:latest \
             --subdomain skipper-${GITHUB_RUN_ID} \
             -p 443:9090 \
             .;
@@ -76,40 +76,3 @@ jobs:
           kraft cloud vm logs skipper-${GITHUB_RUN_ID} || true;
           kraft cloud vm rm skipper-${GITHUB_RUN_ID} || true;
           kraft cloud img rm index.unikraft.io/test/skipper-${GITHUB_RUN_ID} || true;
-
-    - name: Re-test with debug info
-      id: re-test
-      if: ${{ success() && steps.test.outcome == 'failure' }}
-      uses: unikraft/kraftkit@staging
-      with:
-        run: |
-          set -xe;
-
-          cd skipper;
-
-          kraft cloud deploy \
-            --no-start \
-            --memory 256 \
-            --name skipper-${GITHUB_RUN_ID}-dbg \
-            --runtime index.unikraft.io/official-testing/skipper:0.18-dbg \
-            --subdomain skipper-${GITHUB_RUN_ID}-dbg \
-            -p 443:9090 \
-            .;
-
-          # wait for the instance to start
-          kraft cloud vm start -w 5s skipper-${GITHUB_RUN_ID}-dbg;
-          sleep 5;
-
-          curl -Lv --fail-with-body --max-time 10 https://skipper-${GITHUB_RUN_ID}-dbg.${{ vars.UKC_METRO_STABLE }}.unikraft.app
-
-    - name: Cleanup Debug
-      uses: unikraft/kraftkit@staging
-      if: always()
-      with:
-        run: |
-          set -xe;
-
-          kraft cloud vm stop skipper-${GITHUB_RUN_ID}-dbg || true;
-          kraft cloud vm logs skipper-${GITHUB_RUN_ID}-dbg || true;
-          kraft cloud vm rm skipper-${GITHUB_RUN_ID}-dbg || true;
-          kraft cloud img rm index.unikraft.io/test/skipper-${GITHUB_RUN_ID}-dbg || true;

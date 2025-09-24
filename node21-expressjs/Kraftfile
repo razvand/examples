@@ -2,7 +2,7 @@ spec: v0.6
 
 name: node21-expressjs
 
-runtime: node:21
+runtime: base-compat:latest
 
 labels:
   cloud.unikraft.v1.instances/scale_to_zero.policy: "on"

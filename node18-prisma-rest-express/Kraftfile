@@ -2,7 +2,7 @@ spec: v0.6
 
 name: node18-prisma
 
-runtime: node:18
+runtime: base-compat:latest
 
 labels:
   cloud.unikraft.v1.instances/scale_to_zero.policy: "on"

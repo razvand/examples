@@ -1,10 +1,12 @@
 spec: v0.6
 
-runtime: opentelemetry-collector:latest
+runtime: base-compat:latest
 
 labels:
   cloud.unikraft.v1.instances/scale_to_zero.policy: "idle"
   cloud.unikraft.v1.instances/scale_to_zero.stateful: "true"
   cloud.unikraft.v1.instances/scale_to_zero.cooldown_time_ms: 1000
 
-rootfs: ./rootfs
+rootfs: ./Dockerfile
+
+cmd: ["/usr/bin/otelcontribcol", "--config", "/etc/otel/config.yaml"]

@@ -1,6 +1,6 @@
 spec: v0.6
 
-runtime: python:3.12
+runtime: base-compat:latest
 
 labels:
   cloud.unikraft.v1.instances/scale_to_zero.policy: "on"
@@ -9,4 +9,4 @@ labels:
 
 rootfs: ./Dockerfile
 
-cmd: ["/usr/bin/python3", "/app/server.py"]
+cmd: ["/usr/bin/python3", "/src/server.py"]

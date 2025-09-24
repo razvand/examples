@@ -1,6 +1,6 @@
 spec: v0.6
 
-runtime: dragonfly:latest
+runtime: base-compat:latest
 
 labels:
   cloud.unikraft.v1.instances/scale_to_zero.policy: "off"
@@ -9,4 +9,4 @@ labels:
 
 rootfs: ./Dockerfile
 
-cmd: ["/usr/bin/dragonfly", "--maxmemory", "256MiB"]
+cmd: ["/usr/bin/wrapper.sh"]

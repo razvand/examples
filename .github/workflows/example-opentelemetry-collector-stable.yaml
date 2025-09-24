@@ -54,7 +54,7 @@ jobs:
             --no-start \
             --memory 1024 \
             --name opentelemetry-collector-${GITHUB_RUN_ID} \
-            --runtime index.unikraft.io/official-testing/opentelemetry-collector:0.95.0 \
+            --runtime index.unikraft.io/official-testing/base-compat:latest \
             --subdomain opentelemetry-collector-${GITHUB_RUN_ID} \
             -p 443:13133 \
             .;
